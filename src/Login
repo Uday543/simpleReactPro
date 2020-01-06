@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import axios from 'axios';
+import {sessionStorage} from 'express-session'
+
+export class Login extends Component {
+    constructor(props) {
+        super(props)
+        this.handleNamechange = this.handleNamechange.bind(this);
+        this.handleNumberchange = this.handleNumberchange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+     
+        this.state = {
+             name:'',
+             mobile:''
+        }
+    }
+    handleNamechange = (event) =>{
+        this.setState({
+            name:event.target.value
+        })
+    }
+    
+    handleNumberchange = (event) =>{
+        this.setState({
+            mobile:event.target.value
+        })
+    }
+
+    // onSubmit(event) {
+      
+    // }
+
+  handleSubmit(event) {
+      event.preventDefault();
+      const Login = {
+          name: this.state.name,
+          mobile: this.state.mobile
+      }
+      console.log(Login);
+      localStorage.setItem('Login', JSON.stringify(Login));
+      window.location = '/Display'
+    //   sessionStorage.setItem('uday', 1);
+    //   sessionStorage.setItem('number', 1222);
+    //   if (this.state.name && this.state.mobile != '') {
+    //     axios.post('http://localhost:4567/login/create', {name:this.state.name, mobile:this.state.mobile})
+    //         .then(res => console.log(res.data))
+    //     alert('Registered Successfully')
+    //     // window.location = '/OtpVerificationPage'
+    // }
+    // else {
+    //     alert('enter valid data')
+    //     console.log('enter valid data')
+    // }
+
+  }
+    render() {
+        return (
+            <div>
+                <label>Name:</label>
+                <input type = "text" name = "name" value= {this.state.name} onChange={this.handleNamechange}/> <br />
+                <label>Number:</label>
+                <input type = "text" name = "mobile" value= {this.state.mobile} onChange={this.handleNumberchange}/> <br />
+                <button type ="submit" onClick={this.handleSubmit} >Submit</button>
+                
+            </div>
+            
+        )
+    }
+}
+
+export default Login
+
